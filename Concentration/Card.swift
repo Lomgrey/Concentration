@@ -9,7 +9,7 @@
 import Foundation
 
 struct Card {
-    var isWatched = false
+    var seen = false
     var isFaceUp = false
     var isMatched = false
     var identifier: Int

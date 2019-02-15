@@ -24,10 +24,10 @@ class Concentration {
                     cards[index].isMatched = true
                     
                     score += 2
-                } else if cards[index].isWatched {
+                } else if cards[index].seen {
                     score -= 1
                 }
-                cards[index].isWatched = true
+                cards[index].seen = true
                 cards[index].isFaceUp = true
                 indexOfOneAndOnlyOneFaceUpCard = nil
             } else {
