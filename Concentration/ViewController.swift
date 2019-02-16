@@ -10,14 +10,13 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    
     lazy var game = Concentration(numberOfPairsOfCards: cardButtons.count / 2)
     
-    @IBOutlet weak var flipCountLabel: UILabel!
+    var scoreLable = UILabel()
     
     var score = 0 {
         didSet {
-            flipCountLabel.text = "Score: \(score)"
+            scoreLable.text = "Score: \(score)"
         }
     }
     
@@ -35,10 +34,53 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        initUIElemrnts()
         fillCardButtons()
+        
         initThemes()
         setRandomTheme()
         
+    }
+    
+    func initUIElemrnts() {
+        initScoreLabel()
+        initNewGameButton()
+    }
+    
+    func initScoreLabel() {
+        scoreLable.text = "Score: 0"
+        scoreLable.textColor = #colorLiteral(red: 1, green: 0.5781051517, blue: 0, alpha: 1)
+        scoreLable.font = .systemFont(ofSize: 50)
+        scoreLable.textAlignment = .center
+        
+        let x = 20
+        let y = screenHeight - 150
+        let width = screenWidth - 40
+        let height = 60
+        
+        scoreLable.frame = CGRect(x: x, y: y, width: width, height: height)
+        
+        self.view.addSubview(scoreLable)
+    }
+    
+    func initNewGameButton() {
+        let newGameButton = UIButton(type: UIButton.ButtonType.system) as UIButton
+        
+        newGameButton.setTitle("New Game", for: UIControl.State.normal)
+        newGameButton.titleLabel?.font = UIFont.systemFont(ofSize: 40)
+        newGameButton.setTitleColor(#colorLiteral(red: 1, green: 0.5781051517, blue: 0, alpha: 1), for: UIControl.State.normal)
+        newGameButton.backgroundColor = #colorLiteral(red: 0.370555222, green: 0.3705646992, blue: 0.3705595732, alpha: 1)
+        newGameButton.addTarget(self, action: #selector(ViewController.newGameActon(_:)), for: .touchUpInside)
+        
+        let indent = 55
+        let width = screenWidth - indent * 2
+        let height = 65
+        let x = indent
+        let y = screenHeight - height - 25
+        
+        newGameButton.frame = CGRect(x: x, y: y, width: width, height: height)
+        
+        self.view.addSubview(newGameButton)
     }
     
     var themesDictionary = [Int: Theme]()
@@ -56,7 +98,7 @@ class ViewController: UIViewController {
         let numberOfCountCardsInRow = 4
         
         let indent = 20 // right and left
-        let upIndent = 80
+        let upIndent = 45
         let xSpacingBetweenCards = 10
         let ySpacingBetweenCards = 20
         
