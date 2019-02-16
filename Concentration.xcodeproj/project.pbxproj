@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E740EEFD2218246D00176AA8 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740EEFC2218246D00176AA8 /* Theme.swift */; };
 		E7E3097321D680E600E67512 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E3097221D680E600E67512 /* AppDelegate.swift */; };
 		E7E3097521D680E600E67512 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E3097421D680E600E67512 /* ViewController.swift */; };
 		E7E3097821D680E600E67512 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7E3097621D680E600E67512 /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E740EEFC2218246D00176AA8 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		E7E3096F21D680E600E67512 /* Concentration.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Concentration.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7E3097221D680E600E67512 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7E3097421D680E600E67512 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 				E7E3097621D680E600E67512 /* Main.storyboard */,
 				E7E3098521D692D600E67512 /* Concentration.swift */,
 				E7E3098721D6931000E67512 /* Card.swift */,
+				E740EEFC2218246D00176AA8 /* Theme.swift */,
 				E7E3098421D681AA00E67512 /* Supporting Files */,
 				E7E3097E21D680E900E67512 /* Info.plist */,
 			);
@@ -151,6 +154,7 @@
 			files = (
 				E7E3097521D680E600E67512 /* ViewController.swift in Sources */,
 				E7E3097321D680E600E67512 /* AppDelegate.swift in Sources */,
+				E740EEFD2218246D00176AA8 /* Theme.swift in Sources */,
 				E7E3098621D692D600E67512 /* Concentration.swift in Sources */,
 				E7E3098821D6931000E67512 /* Card.swift in Sources */,
 			);

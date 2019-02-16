@@ -21,18 +21,13 @@ class ViewController: UIViewController {
         }
     }
     
-    // var themes
-    
+    let numberOfButtons = 16
     var cardButtons = [UIButton]()
     
-    let numberOfButtons = 16
-    
-    // Screen width.
     var screenWidth: Int {
         return Int(UIScreen.main.bounds.width)
     }
     
-    // Screen height.
     var screenHeight: Int {
         return Int(UIScreen.main.bounds.height)
     }
@@ -41,22 +36,35 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         fillCardButtons()
+        initThemes()
+        setRandomTheme()
+        
+    }
+    
+    var themesDictionary = [Int: Theme]()
+    
+    func initThemes() {
+        themesDictionary[0] = Theme(emojiSequence: ["🤨", "🧐", "👻", "🎃", "🍭", "🍬", "🍎", "🍪"])
+        themesDictionary[1] = Theme(emojiSequence: ["⚽️", "🏀", "🏈", "🚴🏻‍♀️", "🤽🏻‍♂️", "🎻", "🎹", "🏊🏼‍♂️"])
+        themesDictionary[2] = Theme(emojiSequence: ["🐶", "🐸", "🐵", "🐔", "🐷", "🦄", "🦅", "🦞"])
+        themesDictionary[3] = Theme(emojiSequence: ["📱", "💻", "🖥", "📺", "🧭", "⌚️", "💿", "📽"])
+        themesDictionary[4] = Theme(emojiSequence: ["🚠", "✈️", "🛩", "🚊", "🏍", "🚐", "🚜", "🛸"])
+        themesDictionary[5] = Theme(emojiSequence: ["🥺", "🤥", "🙂", "🙃", "🤫", "😲", "🧐", "🤐"])
     }
     
     func fillCardButtons() {
         let numberOfCountCardsInRow = 4
         
         let indent = 20 // right and left
-        let upIndent = 40
+        let upIndent = 80
         let xSpacingBetweenCards = 10
         let ySpacingBetweenCards = 20
         
-        print("screen width     = \(screenWidth)")
-        print("screen height    = \(screenHeight)")
-        let widthOfCard = (screenWidth - indent * 2 - xSpacingBetweenCards * (numberOfCountCardsInRow - 1)) / numberOfCountCardsInRow
-        let heightOfCard = Int(Double(widthOfCard) * 1.2)
+        let availableWidthForCards = (screenWidth - indent * 2 - xSpacingBetweenCards * (numberOfCountCardsInRow - 1))
         
-    
+        let widthOfCard = availableWidthForCards / numberOfCountCardsInRow
+        let heightOfCard = Int(Double(widthOfCard) * 1.3)
+        
         var row = 0
         var cardInRow = 0
         while cardButtons.count < numberOfButtons {
@@ -113,8 +121,7 @@ class ViewController: UIViewController {
         score = game.score
     }
     
-//    var emojiChoiser = ["🤨", "🧐", "👻", "🎃", "🍭", "🍬", "🍫", "🍪", "🍎"]
-    var emojiChoiser = ["🤨", "🧐", "👻", "🎃", "🍭", "🍬", "🍎", "🍪"]
+    var emojiChoiser = [String]()
     var emoji = [Int:String]()
     
     func emoji(for card: Card) -> String {
@@ -129,9 +136,20 @@ class ViewController: UIViewController {
     @IBAction func newGameActon(_ sender: UIButton) {
 
         game.resetGame()
+        emoji.removeAll()
+        setRandomTheme()
         score = 0
         updateViewFromModel()
         
+    }
+    
+    func setRandomTheme() {
+        let randIndex = Int.random(in: 0...themesDictionary.count - 1)
+        setTheme(theme: themesDictionary[randIndex] ?? themesDictionary[0]!)
+    }
+    
+    func setTheme(theme: Theme) {
+        emojiChoiser = theme.emojiChoiser
     }
 }
 
