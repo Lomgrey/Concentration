@@ -42,6 +42,7 @@ class Concentration {
     
     func resetGame() {
         for i in 0...cards.count - 1 {
+            cards[i].seen = false
             cards[i].isMatched = false
             cards[i].isFaceUp = false
         }
