@@ -8,23 +8,14 @@
 
 import Foundation
 
-class Concentration {
+
+struct Concentration {
     
     private(set) var cards = [Card]()
     
     private var indexOfOneAndOnlyOneFaceUpCard: Int? {
         get {
-            var foundIndex : Int?
-            for index in cards.indices {
-                if cards[index].isFaceUp {
-                    if foundIndex == nil {
-                        foundIndex = index
-                    } else {
-                        return nil
-                    }
-                }
-            }
-            return foundIndex
+            return cards.indices.filter {cards[$0].isFaceUp }.oneAndOnly
         }
         set {
             for index in cards.indices {
@@ -36,11 +27,11 @@ class Concentration {
     
     private(set) var score = 0
     
-    func chooseCard(at index: Int) {
+    mutating func chooseCard(at index: Int) {
         assert(cards.indices.contains(index), "Concentration.chooseCard(at: \(index)): inndex is out of bounds crds array")
         if !cards[index].isMatched {
             if let matchIndex = indexOfOneAndOnlyOneFaceUpCard, matchIndex != index {
-                if cards[matchIndex].identifier == cards[index].identifier {
+                if cards[matchIndex] == cards[index] {
                     cards[matchIndex].isMatched = true
                     cards[index].isMatched = true
                     
@@ -56,7 +47,7 @@ class Concentration {
         }
     }
     
-    func resetGame() {
+    mutating func resetGame() {
         for i in 0...cards.count - 1 {
             cards[i].seen = false
             cards[i].isMatched = false
@@ -75,5 +66,11 @@ class Concentration {
         }
         
         cards.shuffle()
+    }
+}
+
+extension Collection {
+    var oneAndOnly: Element? {
+        return count == 1 ? first : nil
     }
 }

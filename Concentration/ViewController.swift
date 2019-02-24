@@ -12,7 +12,11 @@ class ViewController: UIViewController {
 
     private lazy var game = Concentration(numberOfPairsOfCards: numberOfPairOfCards)
     
-    @IBOutlet private weak var scoreLabel: UILabel!
+    @IBOutlet private weak var scoreLabel: UILabel! {
+        didSet {
+            updateScoreLable()
+        }
+    }
     
     @IBOutlet private var cardButtons: [UIButton]!
     
@@ -22,8 +26,17 @@ class ViewController: UIViewController {
     
     private(set) var score = 0 {
         didSet {
-            scoreLabel.text = "Score: \(score)"
+            updateScoreLable()
         }
+    }
+    
+    private func updateScoreLable() {
+        let attributes : [NSAttributedString.Key : Any] = [
+            .strokeWidth : 5.0,
+            .strokeColor : #colorLiteral(red: 1, green: 0.5781051517, blue: 0, alpha: 1)
+        ]
+        let attributedString = NSAttributedString(string: "Score: \(score)", attributes: attributes)
+        scoreLabel.attributedText = attributedString
     }
     
     override func viewDidLoad() {
@@ -71,27 +84,25 @@ class ViewController: UIViewController {
     }
     
     
-    // TODO : remove intermediate Array
     private var emojiChoiser = [String]()
-    private  var emoji = [Int:String]()
+    private var emoji = [Card:String]()
     
     private func emoji(for card: Card) -> String {
-        if emoji[card.identifier] == nil, emojiChoiser.count > 0 {
+        if emoji[card] == nil, emojiChoiser.count > 0 {
             let randomIndex = Int.random(in: 0...emojiChoiser.count - 1)
-            emoji[card.identifier] = emojiChoiser.remove(at: randomIndex)
+            emoji[card] = emojiChoiser.remove(at: randomIndex)
         }
         
-        return emoji[card.identifier] ?? "?"
+        return emoji[card] ?? "?"
     }
     
     @IBAction private func newGameActon(_ sender: UIButton) {
 
+        score = 0
         game.resetGame()
         emoji.removeAll()
         setRandomTheme()
-        score = 0
         updateViewFromModel()
-        
     }
     
     private func setRandomTheme() {
